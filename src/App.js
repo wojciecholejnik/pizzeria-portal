@@ -19,8 +19,8 @@ function App() {
       <MainLayout>
         <Switch>
           {/* <Route exact path={process.env.PUBLIC_URL + '/'} component={Homepage} /> */}
-          <Route exact path="/" component={Homepage} />
-          {/* <Route exact path={process.env.PUBLIC_URL + '/login'} component={Login} /> */}
+          <Route exact path='/' component={Homepage} />
+          {/* <Route exact path={`${process.env.PUBLIC_URL}/login`} component={Login} /> */}
           <Route exact path="/login" component={Login} />
           {/* <Route exact path={process.env.PUBLIC_URL + '/kitchen'} component={Kitchen} /> */}
           <Route exact path="/kitchen" component={Kitchen} />

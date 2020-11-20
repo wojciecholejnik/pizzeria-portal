@@ -1,8 +1,8 @@
 import React from 'react';
-// import styles from './WaiterOrder.module.scss';
+import styles from './WaiterOrder.module.scss';
 
 const WaiterOrder = () => (
-  <div className='.component'>
+  <div className={styles.component}>
     <h2>WaiterOrder view</h2>
   </div>
 );
