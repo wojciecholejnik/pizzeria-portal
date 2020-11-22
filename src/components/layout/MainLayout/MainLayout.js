@@ -10,13 +10,13 @@ const MainLayout = ({children}) => (
   <div>
     <AppBar>
       <Container maxWidth='lg'>
-        <Toolbar disableGutters>
+        <Toolbar disableGutters position="fixed">
           <PageNav />
         </Toolbar>
       </Container>
     </AppBar>
     <Container maxWidth='lg'>
-      <Toolbar />
+      <Toolbar position="fixed" />
       {children}
     </Container>
   </div>
