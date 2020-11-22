@@ -1,3 +1,10 @@
-.navLink {
-  margin: 10px;
+@import '../../../styles/settings.scss';
+
+.component {
+  padding: $base-size;
+  margin-left: auto;
+}
+
+.link {
+  color: inherit;
 }
