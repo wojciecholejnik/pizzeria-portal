@@ -4,7 +4,7 @@ import styles from './LogButton.scss';
 import {NavLink} from 'react-router-dom';
 
 const LogButton = () => (
-  <Button  type="submit" component={NavLink} className={styles.component} color="primary" variant="contained" exact to='/' activeClassName='active'>Log in</Button>
+  <Button  type="submit" component={NavLink} className={styles.component} color="primary" variant="contained" exact to='/panel' activeClassName='active'>Log in</Button>
 );
 
 export default LogButton;

@@ -1,39 +1,81 @@
 import React from 'react';
+import PropTypes from 'prop-types';
 import styles from './Homepage.module.scss';
 import Grid from '@material-ui/core/Grid';
-import Card from '@material-ui/core/Card';
-import CardContent from '@material-ui/core/CardContent';
+import Paper from '@material-ui/core/Paper';
+import TodayBookings from '../../features/TodayBookings/TodayBookings';
+import TodayEvents from '../../features/TodayEvents/TodayEvents';
+import TodayStatistics from '../../features/TodayStatistics/TodayStatistics';
 
 
-const Homepage = () => (
-  <div className={styles.component}>
-    <Grid container spacing={3}>
+class Homepage extends React.Component {
+  static propTypes = {
+    event: PropTypes.any,
+    booking: PropTypes.any,
+    fetchEvent: PropTypes.func,
+    fetchBooking: PropTypes.func,
+    loading: PropTypes.shape({
+      active: PropTypes.bool,
+      error: PropTypes.oneOfType([PropTypes.bool,PropTypes.string]),
+    }),
+  }
 
-      <Grid item xs={12} md={4}>
-        <Card>
-          <CardContent>
-            <h3>Today statistics</h3>
-          </CardContent>
-        </Card>
-      </Grid>
+  componentDidMount(){
+    const { fetchBooking, fetchEvent } = this.props;
+    fetchBooking();
+    fetchEvent();
+  }
 
-      <Grid item xs={12} md={4}>
-        <Card>
-          <CardContent>
-            <h3>Today bookings</h3>
-          </CardContent>
-        </Card>
-      </Grid>
+  render() {
+    const { loading: { active, error }, booking, event } = this.props;
 
-      <Grid item xs={12} md={4}>
-        <Card>
-          <CardContent>
-            <h3>Today events</h3>
-          </CardContent>
-        </Card>
-      </Grid>
-    </Grid>
-  </div>
-);
+    if(active || !booking.length || !event.length){
+      return (
+        <Paper className={styles.component}>
+          <p>Loading...</p>
+        </Paper>
+      );
+    } else if(error) {
+      return (
+        <Paper className={styles.component}>
+          <p>Error! Details:</p>
+          <pre>{error}</pre>
+        </Paper>
+      );
+    } else {
+      return (
+        <div className={styles.component}>
+          <Grid container spacing={3}>
+            <Grid item xs={12} md={4}>
+              <Paper className={styles.paper}>
+                <TodayStatistics />
+              </Paper>
+            </Grid>
+
+            <Grid item xs={12} md={4}>
+              <Paper className={styles.paper}>
+                <TodayBookings />
+              </Paper>
+            </Grid>
+
+            <Grid item xs={12} md={4}>
+              <Paper className={styles.paper}>
+                <TodayEvents />
+              </Paper>
+            </Grid>
+          </Grid>
+        </div>
+      );
+    }
+  }
+}
 
 export default Homepage;
+
+
+
+
+
+
+
+

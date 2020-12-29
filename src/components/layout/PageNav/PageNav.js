@@ -7,11 +7,11 @@ import VpnKeyIcon from '@material-ui/icons/VpnKey';
 
 const PageNav = () => (
   <nav className={styles.component}>
-    <Button  component={NavLink} className={styles.link} exact to='/' activeClassName='active'><HomeIcon /></Button>
-    <Button  component={NavLink} className={styles.link} exact to='/tables' activeClassName='active'>Tables</Button>
-    <Button  component={NavLink} className={styles.link} exact to='/waiter' activeClassName='active'>Waiter</Button>
-    <Button  component={NavLink} className={styles.link} exact to='/kitchen' activeClassName='active'>Kitchen</Button>
-    <Button  component={NavLink} className={styles.link} to={`${process.env.PUBLIC_URL}/login`} activeClassName='active'><VpnKeyIcon/></Button>
+    <Button  component={NavLink} className={styles.link} exact to={process.env.PUBLIC_URL + '/'} activeClassName='active'><HomeIcon /></Button>
+    <Button  component={NavLink} className={styles.link} exact to={process.env.PUBLIC_URL + '/Tables'} activeClassName='active'>Tables</Button>
+    <Button  component={NavLink} className={styles.link} exact to={process.env.PUBLIC_URL + '/waiter'} activeClassName='active'>Waiter</Button>
+    <Button  component={NavLink} className={styles.link} exact to={process.env.PUBLIC_URL + '/kitchen'} activeClassName='active'>Kitchen</Button>
+    <Button  component={NavLink} className={styles.link} exact to={process.env.PUBLIC_URL + '/login'} activeClassName='active'><VpnKeyIcon/></Button>
   </nav>
 );
 

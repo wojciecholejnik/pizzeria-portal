@@ -36,7 +36,6 @@ class Booking {
         endDateParam,
       ],
     };
-    //console.log('getData params', params);
 
     const urls = {
       booking:        settings.db.url + '/' + settings.db.booking
@@ -46,7 +45,6 @@ class Booking {
       eventsRepeat:   settings.db.url + '/' + settings.db.event
                                       + '?' + params.eventsRepeat.join('&'),
     };
-    //console.log('getData urls', urls);
 
     Promise.all([
       fetch(urls.booking),

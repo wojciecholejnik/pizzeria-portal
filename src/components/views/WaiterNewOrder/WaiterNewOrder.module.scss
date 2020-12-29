@@ -2,4 +2,45 @@
 
 .component {
   padding: $base-size;
+  margin-bottom: 200px;
+
+  .category {
+    width: 100%;
+    min-height: 200px;
+    margin: 10px 0;
+    font-size: 20px;
+    text-transform: uppercase;
+    background-color: white;
+    padding: 15px;
+    position: relative;
+    border-radius: 5px;
+  }
+
+  .param {
+    display: inline-block;
+    padding: 20px;
+    min-width: 30%;
+  }
+
+  .select {
+    min-width: 130px;
+  }
+
+  .summary {
+    background-color: whitesmoke;
+    padding: 2px 15px;
+    border-radius: 5px;
+    min-height: 200px;
+    border: 2px solid gray;
+    position: fixed;
+    width: 91%;
+    bottom: 0;
+
+    .summaryButton {
+      position: absolute;
+      top: 5px;
+      right: 5px;
+
+    }
+  }
 }

@@ -1,4 +1,14 @@
-.dupa {
+.component {
   margin-right: 10px;
-  display: inline-block;
+  margin-bottom: 10px;
+  display: flex;
+  justify-content: center;
+}
+
+.summary {
+  margin-right: 10px;
+  margin-bottom: 10px;
+  position: absolute;
+  top: 5px;
+  right: 5px;
 }
