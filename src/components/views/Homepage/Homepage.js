@@ -12,8 +12,10 @@ class Homepage extends React.Component {
   static propTypes = {
     event: PropTypes.any,
     booking: PropTypes.any,
+    order: PropTypes.any,
     fetchEvent: PropTypes.func,
     fetchBooking: PropTypes.func,
+    fetchOrder: PropTypes.func,
     loading: PropTypes.shape({
       active: PropTypes.bool,
       error: PropTypes.oneOfType([PropTypes.bool,PropTypes.string]),
@@ -21,13 +23,16 @@ class Homepage extends React.Component {
   }
 
   componentDidMount(){
-    const { fetchBooking, fetchEvent } = this.props;
+    const { fetchBooking, fetchEvent, fetchOrder } = this.props;
     fetchBooking();
     fetchEvent();
+    fetchOrder();
   }
 
   render() {
-    const { loading: { active, error }, booking, event } = this.props;
+    const { loading: { active, error }, booking, event, order } = this.props;
+    const now = new Date();
+    const today = now.getFullYear() + '-' + (now.getMonth() + 1) + '-' + now.getDate();
 
     if(active || !booking.length || !event.length){
       return (
@@ -48,19 +53,19 @@ class Homepage extends React.Component {
           <Grid container spacing={3}>
             <Grid item xs={12} md={4}>
               <Paper className={styles.paper}>
-                <TodayStatistics />
+                <TodayStatistics today={today} order={order} />
               </Paper>
             </Grid>
 
             <Grid item xs={12} md={4}>
               <Paper className={styles.paper}>
-                <TodayBookings />
+                <TodayBookings booking={booking} today={today} />
               </Paper>
             </Grid>
 
             <Grid item xs={12} md={4}>
               <Paper className={styles.paper}>
-                <TodayEvents />
+                <TodayEvents event={event} today={today} />
               </Paper>
             </Grid>
           </Grid>

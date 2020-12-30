@@ -4,6 +4,7 @@ import { composeWithDevTools } from 'redux-devtools-extension';
 import tablesReducer from './tablesRedux';
 import bookingReducer from './bookingRedux';
 import eventReducer from './eventRedux';
+import orderReducer from './orderRedux';
 
 // define initial state and shallow-merge initial data
 const initialState = {
@@ -28,6 +29,13 @@ const initialState = {
       error: false,
     },
   },
+  order: {
+    data: {},
+    loading: {
+      active: false,
+      error: false,
+    },
+  },
 };
 
 // define reducers
@@ -35,6 +43,7 @@ const reducers = {
   tables: tablesReducer,
   booking: bookingReducer,
   event: eventReducer,
+  order: orderReducer,
 };
 
 // add blank reducers for initial state properties without reducers
