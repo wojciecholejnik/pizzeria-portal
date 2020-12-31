@@ -1,7 +1,7 @@
 import React from 'react';
 import styles from './Tables.module.scss';
 import TablesButton from '../../common/TablesButton/TablesButton';
-import TablesReservation from '../../features/TablesReservation/TablesReservation';
+import TablesReservation from '../../features/TablesReservation/TablesReservationContainer';
 
 
 const Tables = () => (

@@ -7,25 +7,28 @@ import Typography from '@material-ui/core/Typography';
 
 
 
-const totalProfit = function(orders){
+const totalProfit = (orders) => {
   let profit = 0;
-  for(let order of orders){
+  orders.map(order => {
     profit = profit + order.totalPrice;
-  }
+    return profit;
+  });
   return profit;
 };
 
-const deliveryCounter = function (order, typeOf){
+const deliveryCounter = (order, typeOf) => {
   let type = {takeway: 0, onSite: 0};
-  for(let oneOrder of order){
-    oneOrder.type === 'takeway' ? type.takeway++ : type.onSite++;
-  }
+  order.map(oneOrder => {
+    oneOrder.address ? type.takeway++ : type.onSite++;
+    return type;
+  });
   if(typeOf === 'takeaway'){
     return type.takeway;
   } else if (typeOf === 'on-site') {
     return type.onSite;
   }
 };
+
 
 const ToadyStatistics = ({today, order}) => (
   <div className={styles.component}>
@@ -46,7 +49,7 @@ const ToadyStatistics = ({today, order}) => (
 
 ToadyStatistics.propTypes = {
   today: PropTypes.string,
-  order: PropTypes.array,
+  order: PropTypes.any,
 };
 
 export default ToadyStatistics;
