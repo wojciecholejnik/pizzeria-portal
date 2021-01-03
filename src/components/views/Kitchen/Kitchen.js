@@ -1,4 +1,5 @@
 import React from 'react';
+import PropTypes from 'prop-types';
 import styles from './Kitchen.module.scss';
 import Table from '@material-ui/core/Table';
 import TableBody from '@material-ui/core/TableBody';
@@ -7,97 +8,94 @@ import TableHead from '@material-ui/core/TableHead';
 import TableRow from '@material-ui/core/TableRow';
 import Paper from '@material-ui/core/Paper';
 
-const demoContent = [
-  {
-    orderId: '1',
-    type: 'on-site',
-    products: [
-      {
-        id: 'cake',
-        amount: '2',
-        params: [],
-      },
-      {
-        id: 'breakfast',
-        amount: '2',
-        params: ['espresso'],
-      },
-    ],
-  },
-  {
-    orderId: '2',
-    type: 'takeway',
-    products: [
-      {
-        id: 'salad',
-        amount: '3',
-        params: [
-          'cucumber',
-          'tomatoes',
-          'olives',
-          'fresh herbs',
-        ],
-      },
-    ]},
-  {
-    orderId: '3',
-    type: 'takeway',
-    products: [
-      {
-        id: 'pizza',
-        amount: '1',
-        params: [
-          'sour cream',
-          'olives',
-          'red peppers',
-          'green peppers',
-          'mushrooms',
-          'fresh basil',
-          'salami',
-          'cheese in edges',
-        ],
-      },
-    ],
-  },
-];
 
-const Kitchen = () => (
+const getParams = params => {
+  let paramsType = [];
+  console.log('params: ',params);
+  for (let type in params) {
+    console.log('type: ',type);
+    paramsType.push(type);
+  }
+  return paramsType;
+};
 
-  <div className={styles.component}>
-    <div>
-      <Paper className={styles.component}>
-        <Table>
-          <TableHead>
-            <TableRow>
-              <TableCell width='80'>Order #</TableCell>
-              <TableCell width='100'>Type</TableCell>
-              <TableCell>Info</TableCell>
-            </TableRow>
-          </TableHead>
-          <TableBody>
-            {demoContent.map(row => (
-              <TableRow key={row.id}>
-                <TableCell >
-                  {row.orderId}
-                </TableCell>
-                <TableCell >
-                  {row.type}
-                </TableCell>
-                <TableCell>
-                  {row.products.map(product => (
-                    <div key={row.id}>
-                      {product.id}{' x '}{product.amount}{', '}
-                      {product.params.map(param => (param + ', '))}
-                    </div>
+
+
+class Kitchen extends React.Component {
+  static propTypes = {
+    order: PropTypes.any,
+    fetchOrder: PropTypes.func,
+    orderLoading: PropTypes.shape({
+      active: PropTypes.bool,
+      error: PropTypes.oneOfType([PropTypes.bool,PropTypes.string]),
+    }),
+  }
+
+  componentDidMount(){
+    const { fetchOrder } = this.props;
+    fetchOrder();
+  }
+  getParams
+
+  render() {
+    const { orderLoading: { active, error }, order } = this.props;
+    if(active || !order.length){
+      return (
+        <Paper className={styles.component}>
+          <p>Loading...</p>
+        </Paper>
+      );
+    } else if(error) {
+      return (
+        <Paper className={styles.component}>
+          <p>Error! Details:</p>
+          <pre>{error}</pre>
+        </Paper>
+      );
+    } else {
+      return (
+        <div className={styles.component}>
+          <div>
+            <Paper className={styles.component}>
+              <Table>
+                <TableHead>
+                  <TableRow>
+                    <TableCell width='80'>Order #</TableCell>
+                    <TableCell width='100'>Type</TableCell>
+                    <TableCell>Info</TableCell>
+                  </TableRow>
+                </TableHead>
+                <TableBody>
+                  {order.map(row => (
+                    <TableRow key={row.id}>
+                      <TableCell >
+                        {row.id}
+                      </TableCell>
+                      <TableCell >
+                        {row.type ? 'on-site' : 'takeaway'}
+                      </TableCell>
+                      <TableCell>
+                        {row.products.map(product => (
+                          <div key={Math.random()}>
+                            {product.id}{' x '}{product.amount}{', '}
+                            {
+                              getParams(product.params).map(param => (param + ', '))
+
+                            }
+                          </div>
+                        ))}
+                      </TableCell>
+                    </TableRow>
                   ))}
-                </TableCell>
-              </TableRow>
-            ))}
-          </TableBody>
-        </Table>
-      </Paper>
-    </div>
-  </div>
-);
+                </TableBody>
+              </Table>
+            </Paper>
+          </div>
+        </div>
+      );
+    }
+  }
+}
+
 
 export default Kitchen;

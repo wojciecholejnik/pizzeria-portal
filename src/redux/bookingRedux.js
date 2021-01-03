@@ -4,8 +4,7 @@ import { api } from '../settings';
 /* selectors */
 export const getAllBooking = ({booking}) => booking.data;
 export const getLoadingStateBooking = ({booking}) => booking.loading;
-// export const getAllEvent = ({event}) => event.data;
-// export const getLoadingStateEvent = ({event}) => event.loading;
+export const getToday = ({today}) => today;
 
 /* action name creator */
 const reducerName = 'booking';

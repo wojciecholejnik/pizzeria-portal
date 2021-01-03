@@ -6,31 +6,37 @@ import bookingReducer from './bookingRedux';
 import eventReducer from './eventRedux';
 import orderReducer from './orderRedux';
 
+const now = new Date();
+const month = (now.getMonth()+1) <= 9 ? ('0' + ((now.getMonth()+1))) : (now.getMonth()+1);
+const day = (now.getDate()) <= 9 ? ('0' + (now.getDate())) : now.getDate();
+const today = now.getFullYear() + '-' + month + '-' + day;
+
 // define initial state and shallow-merge initial data
 const initialState = {
+  today: today,
   tables: {
-    data: {},
+    data: [],
     loading: {
       active: false,
       error: false,
     },
   },
   booking: {
-    data: {},
+    data: [],
     loading: {
       active: false,
       error: false,
     },
   },
   event: {
-    data: {},
+    data: [],
     loading: {
       active: false,
       error: false,
     },
   },
   order: {
-    data: {},
+    data: [],
     loading: {
       active: false,
       error: false,

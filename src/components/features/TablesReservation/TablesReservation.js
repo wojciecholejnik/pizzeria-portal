@@ -18,6 +18,7 @@ const hours = ['12:00', '12:30', '13:00', '13:30', '14:00', '14:30', '15:00', '1
 class TablesReservation extends React.Component {
 
   static propTypes = {
+    today: PropTypes.string,
     booking: PropTypes.array,
     event: PropTypes.array,
     fetchEvent: PropTypes.func,
@@ -36,17 +37,14 @@ class TablesReservation extends React.Component {
 
   render(){
 
-    const { loading: { active, error }, booking, event } = this.props;
-    const now = new Date();
-    const today = now.getFullYear() + '-' + (now.getMonth() + 1) + '-' + now.getDate();    console.log('booking: ', booking);
+    const { loading: { active, error }, booking, event, today } = this.props;
+
     const todayBooking = booking.filter(function(booking) {
       return booking.date === today;
     });
-    console.log('todayBooking: ', todayBooking);
     const todayEvent = event.filter(function(oneEvent) {
       return oneEvent.date === today ^ oneEvent.repeat === 'daily';
     });
-    console.log('todayEvent: ', todayEvent);
 
     if(active || !booking.length || !event.length){
       return (

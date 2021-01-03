@@ -7,10 +7,12 @@ import TableCell from '@material-ui/core/TableCell';
 import TableHead from '@material-ui/core/TableHead';
 import TableRow from '@material-ui/core/TableRow';
 import Paper from '@material-ui/core/Paper';
+import {NavLink} from 'react-router-dom';
 import Button from '@material-ui/core/Button';
 
 class Waiter extends React.Component {
   static propTypes = {
+    statusToggled: PropTypes.func,
     tables: PropTypes.any,
     fetchTables: PropTypes.func,
     loading: PropTypes.shape({
@@ -24,34 +26,35 @@ class Waiter extends React.Component {
     fetchTables();
   }
 
-  renderActions(status){
-    switch (status) {
+  renderActions(table){
+    const { statusToggled } = this.props;
+    switch (table.status) {
       case 'free':
         return (
           <>
-            <Button>thinking</Button>
-            <Button>new order</Button>
+            <Button component={NavLink} to={`${process.env.PUBLIC_URL}/waiter`} onClick={() => statusToggled(table)}>thinking</Button>
+            <Button onClick={() => statusToggled(table)} component={NavLink} to={`${process.env.PUBLIC_URL}/waiter/order/new`} >new order</Button>
           </>
         );
       case 'thinking':
         return (
-          <Button>new order</Button>
+          <Button component={NavLink} to={`${process.env.PUBLIC_URL}/waiter/order/new`} onClick={() => statusToggled(table)}>new order</Button>
         );
       case 'ordered':
         return (
-          <Button>prepared</Button>
+          <Button component={NavLink} to={`${process.env.PUBLIC_URL}/waiter`} onClick={() => statusToggled(table)}>prepared</Button>
         );
       case 'prepared':
         return (
-          <Button>delivered</Button>
+          <Button component={NavLink} to={`${process.env.PUBLIC_URL}/waiter`} onClick={() => statusToggled(table)}>delivered</Button>
         );
       case 'delivered':
         return (
-          <Button>paid</Button>
+          <Button component={NavLink} to={`${process.env.PUBLIC_URL}/waiter`} onClick={() => statusToggled(table)}>paid</Button>
         );
       case 'paid':
         return (
-          <Button>free</Button>
+          <Button component={NavLink} to={`${process.env.PUBLIC_URL}/waiter`} onClick={() => statusToggled(table)}>free</Button>
         );
       default:
         return null;
@@ -60,6 +63,7 @@ class Waiter extends React.Component {
 
   render() {
     const { loading: { active, error }, tables } = this.props;
+
 
     if(active || !tables.length){
       return (
@@ -97,13 +101,13 @@ class Waiter extends React.Component {
                   </TableCell>
                   <TableCell>
                     {row.order && (
-                      <Button to={`${process.env.PUBLIC_URL}/waiter/order/${row.order}`}>
+                      <Button component={NavLink} to={`${process.env.PUBLIC_URL}/waiter/order/${row.order}`}>
                         {row.order}
                       </Button>
                     )}
                   </TableCell>
                   <TableCell>
-                    {this.renderActions(row.status)}
+                    {this.renderActions(row)}
                   </TableCell>
                 </TableRow>
               ))}

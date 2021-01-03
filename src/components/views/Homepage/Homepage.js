@@ -10,6 +10,7 @@ import TodayStatistics from '../../features/TodayStatistics/TodayStatistics';
 
 class Homepage extends React.Component {
   static propTypes = {
+    today: PropTypes.string,
     event: PropTypes.any,
     booking: PropTypes.any,
     order: PropTypes.any,
@@ -30,9 +31,7 @@ class Homepage extends React.Component {
   }
 
   render() {
-    const { loading: { active, error }, booking, event, order } = this.props;
-    const now = new Date();
-    const today = now.getFullYear() + '-' + (now.getMonth() + 1) + '-' + now.getDate();
+    const { loading: { active, error }, booking, event, order, today } = this.props;
 
     if(active || !booking.length || !event.length){
       return (
