@@ -13,7 +13,7 @@ const getParams = params => {
   let paramsType = [];
   console.log('params: ',params);
   for (let type in params) {
-    console.log('type: ',type);
+    console.log('type: ',params[type]);
     paramsType.push(type);
   }
   return paramsType;
@@ -35,7 +35,6 @@ class Kitchen extends React.Component {
     const { fetchOrder } = this.props;
     fetchOrder();
   }
-  getParams
 
   render() {
     const { orderLoading: { active, error }, order } = this.props;

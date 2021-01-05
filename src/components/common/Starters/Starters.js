@@ -17,15 +17,17 @@ export default function Starters() {
   };
 
   return (
-    <FormGroup row className={styles.component}>
-      <div className={styles.header}><Typography variant="h6">Starters:</Typography></div>
+    <FormGroup row className={styles.component} id="starters">
+      <div className={styles.header}>
+        <Typography variant="h6">Starters:</Typography>
+      </div>
       <FormControlLabel
         control={<Checkbox checked={state.checkedA} onChange={handleChange} name="checkedA" />}
-        label="Water"
+        label="Water" value="water"
       />
       <FormControlLabel
         control={<Checkbox checked={state.checkedB} onChange={handleChange} name="checkedB" />}
-        label="Bread"
+        label="Bread" value="bread"
       />
     </FormGroup>
   );

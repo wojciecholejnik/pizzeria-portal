@@ -448,19 +448,6 @@
       "address": "asdcv",
       "phone": "1234",
       "id": 5
-    },
-    {
-      "date": "2021-01-01",
-      "hour": "21:30",
-      "table": 1,
-      "duration": 2,
-      "ppl": 2,
-      "starters": [
-        "water"
-      ],
-      "address": "MATEK",
-      "phone": "45678",
-      "id": 6
     }
   ],
   "tables": [
