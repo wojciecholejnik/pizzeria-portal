@@ -30,6 +30,7 @@ class Waiter extends React.Component {
 
   renderActions(table){
     const {fetchTables} = this.props;
+
     const postToApi = (data) => {
       console.log(data);
       axios
@@ -52,7 +53,6 @@ class Waiter extends React.Component {
       } else {
         console.log();
       }
-
       postToApi(table);
     };
 
