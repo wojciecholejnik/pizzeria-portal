@@ -29,12 +29,11 @@ class Waiter extends React.Component {
   }
 
   renderActions(table){
-    const {fetchTables} = this.props;
 
     const postToApi = (data) => {
-      console.log(data);
+      console.log(`${api.url}/api/${api.tables}/${data.id}`);
       axios
-        .put(`${api.url}/api/${api.tables}`, data).then(fetchTables());
+        .put(`${api.url}/api/${api.tables}/${data.id}`, data);
     };
 
     const changeStatus = (table) => {
