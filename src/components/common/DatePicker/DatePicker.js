@@ -16,7 +16,7 @@ class DatePicker extends React.Component {
     const { today } = this.props;
 
     const now = new Date();
-    const dataFormat = today + 'T' + now.getHours() + ':' + now.getMinutes();
+    const dataFormat = today + 'T' + (now.getHours()<=9 ? '0'+now.getHours() : now.getHours()) + ':' + (now.getMinutes()<=9 ? '0'+now.getMinutes() : now.getMinutes());
 
     return (
       <div className={styles.component}>

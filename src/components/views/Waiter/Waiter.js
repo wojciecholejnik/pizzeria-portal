@@ -9,10 +9,11 @@ import TableRow from '@material-ui/core/TableRow';
 import Paper from '@material-ui/core/Paper';
 import {NavLink} from 'react-router-dom';
 import Button from '@material-ui/core/Button';
+import axios from 'axios';
+import { api } from '../../../settings';
 
 class Waiter extends React.Component {
   static propTypes = {
-    statusToggled: PropTypes.func,
     tables: PropTypes.any,
     fetchTables: PropTypes.func,
     loading: PropTypes.shape({
@@ -21,40 +22,66 @@ class Waiter extends React.Component {
     }),
   }
 
+
   componentDidMount(){
     const { fetchTables } = this.props;
     fetchTables();
   }
 
   renderActions(table){
-    const { statusToggled } = this.props;
+
+    const postToApi = (data) => {
+      console.log(`${api.url}/api/${api.tables}/${data.id}`);
+      axios
+        .put(`${api.url}/api/${api.tables}/${data.id}`, data);
+    };
+
+    const changeStatus = (table) => {
+      if(table.status === 'free'){
+        table.status = 'thinking';
+      } else if (table.status === 'thinking') {
+        table.status = 'ordered';
+      } else if (table.status === 'ordered') {
+        table.status = 'prepared';
+      } else if (table.status === 'prepared') {
+        table.status = 'delivered';
+      } else if (table.status === 'delivered') {
+        table.status = 'paid';
+      } else if (table.status === 'paid') {
+        table.status = 'free';
+      } else {
+        console.log();
+      }
+      postToApi(table);
+    };
+
     switch (table.status) {
       case 'free':
         return (
           <>
-            <Button component={NavLink} to={`${process.env.PUBLIC_URL}/waiter`} onClick={() => statusToggled(table)}>thinking</Button>
-            <Button onClick={() => statusToggled(table)} component={NavLink} to={`${process.env.PUBLIC_URL}/waiter/order/new`} >new order</Button>
+            <Button onClick={() => changeStatus(table)}>thinking</Button>
+            <Button onClick={() => changeStatus(table)} component={NavLink} to={`${process.env.PUBLIC_URL}/waiter/order/new`} >new order</Button>
           </>
         );
       case 'thinking':
         return (
-          <Button component={NavLink} to={`${process.env.PUBLIC_URL}/waiter/order/new`} onClick={() => statusToggled(table)}>new order</Button>
+          <Button onClick={() => changeStatus(table)} component={NavLink} to={`${process.env.PUBLIC_URL}/waiter/order/new`}>new order</Button>
         );
       case 'ordered':
         return (
-          <Button component={NavLink} to={`${process.env.PUBLIC_URL}/waiter`} onClick={() => statusToggled(table)}>prepared</Button>
+          <Button onClick={() => changeStatus(table)}>prepared</Button>
         );
       case 'prepared':
         return (
-          <Button component={NavLink} to={`${process.env.PUBLIC_URL}/waiter`} onClick={() => statusToggled(table)}>delivered</Button>
+          <Button onClick={() => changeStatus(table)}>delivered</Button>
         );
       case 'delivered':
         return (
-          <Button component={NavLink} to={`${process.env.PUBLIC_URL}/waiter`} onClick={() => statusToggled(table)}>paid</Button>
+          <Button onClick={() => changeStatus(table)}>paid</Button>
         );
       case 'paid':
         return (
-          <Button component={NavLink} to={`${process.env.PUBLIC_URL}/waiter`} onClick={() => statusToggled(table)}>free</Button>
+          <Button onClick={() => changeStatus(table)}>free</Button>
         );
       default:
         return null;
@@ -63,7 +90,6 @@ class Waiter extends React.Component {
 
   render() {
     const { loading: { active, error }, tables } = this.props;
-
 
     if(active || !tables.length){
       return (
